@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Outil conseiller — Recouvrement amiable — TMK Performances</title>
+<style>
+:root{--navy:#0d2b56;--gold:#c8a96b;--blue:#0f4c81;--sky:#e8f1fc;--line:#d5dfec;--txt:#1f2a3a;--mut:#5f6f86;--ok:#1d7a46;--ko:#b3261e;--warn:#9a6a10}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{font-family:Nunito,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--txt);background:#f4f7fb;font-size:14px;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3,.serif{font-family:Fraunces,Georgia,"Times New Roman",serif}
+.fictif{background:#b3261e;color:#fff;text-align:center;font-size:12px;font-weight:700;letter-spacing:1.5px;padding:4px;text-transform:uppercase}
+header{background:var(--navy);color:#fff;border-bottom:3px solid var(--gold)}
+header .barre{display:flex;align-items:center;gap:18px;padding:10px 20px}
+header .ent{font-size:19px;font-weight:700}
+header .act{font-size:12px;color:#c9d6ea}
+header .wm{margin-left:auto;font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.5px}
+header .agent{font-size:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:4px 10px;border-radius:3px}
+main{flex:1;display:flex;min-height:0}
+aside{width:290px;flex:0 0 290px;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column}
+aside .tete{padding:14px 14px 10px;border-bottom:1px solid var(--line)}
+aside h2{font-size:15px;color:var(--navy);margin-bottom:8px}
+input[type=search],input[type=text],select,textarea{width:100%;font:inherit;border:1px solid var(--line);border-radius:4px;padding:7px 9px;background:#fff;color:var(--txt)}
+textarea{resize:vertical;min-height:70px;line-height:1.45}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--blue);outline-offset:-1px}
+input:disabled,select:disabled,textarea:disabled{background:#eef2f7;color:#3b4a60}
+.liste{overflow:auto;flex:1}
+.cli{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:#fff;padding:11px 14px;cursor:pointer;font:inherit;color:inherit}
+.cli:hover{background:var(--sky)}
+.cli.on{background:var(--sky);box-shadow:inset 4px 0 0 var(--gold)}
+.cli .nm{font-weight:700;color:var(--navy)}
+.cli .rf{font-size:12px;color:var(--mut)}
+.cli .badge{float:right;font-size:10.5px;font-weight:700;color:var(--ok);border:1px solid var(--ok);border-radius:10px;padding:1px 7px}
+section.vue{flex:1;min-width:0;display:flex;flex-direction:column}
+.vide{margin:auto;text-align:center;color:var(--mut);max-width:420px;padding:40px}
+.vide h2{color:var(--navy);margin-bottom:10px;font-size:22px}
+.ident{background:#fff;border-bottom:1px solid var(--line);padding:14px 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.ident h2{font-size:21px;color:var(--navy)}
+.ident .meta{color:var(--mut);font-size:13px}
+.onglets{display:flex;gap:2px;padding:0 22px;background:#fff;border-bottom:1px solid var(--line)}
+.onglets button{border:0;background:none;font:inherit;padding:11px 14px;cursor:pointer;color:var(--mut);border-bottom:3px solid transparent;font-weight:600}
+.onglets button.on{color:var(--navy);border-bottom-color:var(--gold)}
+.corps{display:flex;gap:18px;padding:18px 22px;overflow:auto;flex:1;align-items:flex-start}
+.pan{flex:1;min-width:0}
+.cote{width:300px;flex:0 0 300px;display:flex;flex-direction:column;gap:14px}
+.carte{background:#fff;border:1px solid var(--line);border-radius:6px;padding:16px 18px;margin-bottom:14px}
+.carte h3{font-size:16px;color:var(--navy);margin-bottom:10px}
+table{width:100%;border-collapse:collapse}
+th{background:var(--navy);color:#fff;text-align:left;font-weight:700;font-size:12.5px;padding:7px 9px}
+td{padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#f8fbff}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:6px 14px}
+.kv dt{color:var(--mut)}
+.kv dd{font-weight:600}
+.alerte{color:var(--ko);font-weight:700}
+.hist{border-left:3px solid var(--line);padding:2px 0 12px 14px;position:relative}
+.hist:before{content:"";position:absolute;left:-7px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--blue)}
+.hist.new:before{background:var(--gold)}
+.hist .d{font-size:12px;color:var(--mut)}
+.hist .o{font-weight:700;color:var(--navy)}
+label.l{display:block;font-weight:700;color:var(--navy);margin:12px 0 5px;font-size:13px}
+label.l small{font-weight:400;color:var(--mut)}
+.grille2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.choix{display:flex;flex-wrap:wrap;gap:6px}
+.choix label{border:1px solid var(--line);border-radius:16px;padding:5px 12px;cursor:pointer;background:#fff;font-size:13px}
+.choix input{margin-right:5px}
+.coche{display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-size:13.5px}
+.btn{font:inherit;font-weight:700;border-radius:4px;padding:9px 16px;cursor:pointer;border:1px solid var(--navy);background:var(--navy);color:#fff}
+.btn:hover{background:var(--blue)}
+.btn:disabled{background:#8ea0b8;border-color:#8ea0b8;cursor:default}
+.btn.sec{background:#fff;color:var(--navy)}
+.btn.sec:hover{background:var(--sky)}
+.actions{display:flex;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
+.err{color:var(--ko);font-size:13px}
+.ctrl li{list-style:none;padding:6px 0;border-bottom:1px dashed var(--line);display:flex;gap:9px}
+.ctrl .i{font-weight:800;width:18px;flex:0 0 18px;text-align:center}
+.ctrl .ok{color:var(--ok)}.ctrl .ko{color:var(--ko)}.ctrl .mi{color:var(--warn)}
+.score{font-size:15px;font-weight:700;color:var(--navy);margin:6px 0 10px}
+.note{font-size:12.5px;color:var(--mut);font-style:italic}
+.piste{background:var(--sky);border-left:4px solid var(--gold);padding:10px 14px;margin-top:12px;border-radius:0 4px 4px 0}
+.delais h4{font-size:13px;color:var(--blue);margin:10px 0 4px}
+.delais p{font-size:12.5px;margin-bottom:4px}
+.delais .src{color:var(--mut);font-style:italic;font-size:11.5px}
+#ecran-secteur{flex:1;display:flex;align-items:center;justify-content:center;padding:30px}
+#ecran-secteur .boite{background:#fff;border:1px solid var(--line);border-radius:8px;padding:30px 34px;max-width:720px;width:100%}
+#ecran-secteur h1{color:var(--navy);font-size:25px;margin-bottom:6px}
+#ecran-secteur p{color:var(--mut);margin-bottom:20px}
+.secteurs{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.secteurs button{text-align:left;border:1px solid var(--line);border-radius:6px;background:#fff;padding:18px;cursor:pointer;font:inherit}
+.secteurs button:hover{border-color:var(--gold);background:var(--sky)}
+.secteurs .s1{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold);font-weight:800}
+.secteurs .s2{font-family:Fraunces,Georgia,serif;font-size:20px;color:var(--navy);font-weight:700;margin:4px 0}
+.secteurs .s3{color:var(--mut);font-size:13px}
+footer{font-size:11px;color:var(--mut);text-align:center;padding:8px;border-top:1px solid var(--line);background:#fff}
+footer button{border:0;background:none;color:var(--blue);cursor:pointer;font:inherit;text-decoration:underline;margin-left:10px}
+.agent.jour{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:700}
+.proc h3{display:flex;gap:10px;align-items:baseline}
+.pid{font-family:Nunito,Arial,sans-serif;font-size:12px;background:var(--navy);color:#fff;border-radius:3px;padding:2px 7px}
+.proc ul{padding-left:18px}.proc li{margin:5px 0;line-height:1.5}
+.selj{margin-left:14px;font-size:11px}.selj select{width:auto;font-size:11px;padding:2px 4px;margin-left:4px}
+.bandeval{background:#fff7e6;border-color:var(--gold)}
+.cli .ev{color:var(--warn)}
+table.ae td:not(:first-child),table.ae th:not(:first-child){text-align:center;width:46px}
+@media (max-width:1100px){.cote{width:240px;flex-basis:240px}.grille2{grid-template-columns:1fr}}
+
+
+.secteurs{grid-template-columns:1fr 1fr 1fr}
+.ident .sens{font-size:12px;font-weight:700;border-radius:3px;padding:3px 9px;background:var(--sky);color:var(--navy);border:1px solid var(--line)}
+.ident .sens.AS{background:#fff7e6;border-color:var(--gold)}
+.ident .du{margin-left:auto;font-size:13px;color:var(--mut)}.ident .du b{color:var(--ko)}
+table.plan td{padding:4px}table.plan input,table.plan select{padding:5px 7px}
+.coche input[type=text]{margin-left:6px}
+.proc li b{color:var(--navy)}</style>
+</head>
+<body>
+<div class="fictif">Document fictif à usage pédagogique</div>
+<header><div class="barre">
+  <div><div class="ent" id="h-ent">Outil conseiller</div><div class="act" id="h-act">Recouvrement amiable</div></div>
+  <span class="agent">Poste conseiller · Service recouvrement</span>
+  <span class="agent jour" id="h-jour"></span>
+  <span class="wm">TMK Performances</span>
+</div></header>
+<div id="ecran-secteur" hidden>
+  <div class="boite">
+    <h1>Choisir le secteur de la session</h1>
+    <p>Le formateur choisit le secteur pour le groupe. Il s'applique à tous les dossiers de l'outil.</p>
+    <div class="secteurs">
+      <button data-s="banque"><div class="s1">Banque / Crédit</div><div class="s2">Lysandre</div><div class="s3">Crédit à la consommation</div></button>
+      <button data-s="energie"><div class="s1">Télécom / Énergie</div><div class="s2">Volténa</div><div class="s3">Électricité, gaz, fibre et mobile</div></button>
+      <button data-s="assurance"><div class="s1">Assurance</div><div class="s2">Néréis</div><div class="s3">Auto, habitation, multirisque pro</div></button>
+    </div>
+  </div>
+</div>
+<main id="app" hidden>
+  <aside>
+    <div class="tete"><h2>Dossiers à traiter</h2><input type="search" id="recherche" placeholder="Nom ou n° de dossier…" aria-label="Rechercher un dossier"></div>
+    <div class="liste" id="liste"></div>
+  </aside>
+  <section class="vue" id="vue"></section>
+</main>
+<footer>TMK Performances - N° Siret : 49841924100027 - Code NAF : 8559A<button id="chg-secteur" type="button">Changer de secteur (formateur)</button></footer>
+<script>
+const DATA = {"SOLUTIONS":{"banque":["Paiement immédiat du retard","Paiement fractionné du retard (3 versements au plus, sur 90 jours)","Lissage du retard sur les échéances restantes","Report de 1 ou 2 échéances en fin de crédit","Report de 3 à 6 échéances en fin de crédit (superviseur)","Nouvel échéancier (transmis pour étude)"],"energie":["Paiement immédiat","Report de la date limite (15 jours au plus)","Échéancier sans frais (6 mensualités au plus)","Échéancier de 7 à 12 mensualités (superviseur)"],"assurance":["Paiement immédiat","Paiement fractionné (3 versements au plus, sur 90 jours)","Paiement fractionné de 4 à 6 versements (superviseur)","Règlement de sa part par un souscripteur","Annulation des cotisations non dues et règlement du solde"]},"QUI":["Moi-même, dans ma délégation","Superviseur","Service recouvrement — étude du dossier"],"CAUSES":["Oubli, changement de banque ou de coordonnées","Perte d'emploi ou baisse de revenus","Dépense imprévue","Séparation ou changement de situation familiale","Difficultés durables (plusieurs dettes)","Difficultés de l'activité professionnelle","Contestation de la somme","Erreur de l'entreprise"],"MOYENS":["Carte bancaire pendant l'appel","Virement","Prélèvement","Chèque"],"AUTOEVAL":["J'ai vérifié l'identité du titulaire et annoncé l'objet de l'appel clairement","J'ai fait exprimer la situation du client et je l'ai écouté sans le juger","J'ai proposé d'abord le paiement immédiat, puis négocié dans ma délégation","J'ai traité les objections sans menace ni pression","J'ai obtenu un engagement précis : montant, date et moyen de paiement","J'ai récapitulé l'accord et rédigé un e-mail de confirmation complet"],"ENTREPRISES":{"banque":{"nom":"Lysandre Banque & Assurances","activite":"Crédit à la consommation — service recouvrement amiable","secteur":"Banque / Crédit"},"energie":{"nom":"Volténa","activite":"Électricité, gaz, fibre et mobile — service recouvrement","secteur":"Télécom / Énergie"},"assurance":{"nom":"Néréis Assurances","activite":"Auto, habitation, multirisque pro — recouvrement des cotisations","secteur":"Assurance"}},"CAS":{"banque":[{"id":"B1","ref":"REC-310457","civ":"Mme","prenom":"Perrine","nom":"DURAND","age":51,"adresse":"25 avenue des Arts, 59100 Roubaix","tel":"06 44 96 78 11","email":"p.durand@exemple.fr","depuis":"2023","sens":"AS","titre":"Une échéance rejetée après une perte d'emploi","contrats":[["Prêt travaux 8 028 €","36 mensualités de 223 €, prélevées le 10","Incident en cours"]],"compte":[["Échéances 1 à 31","payées","6 913,00 €","Payé"],["Échéance 32","il y a 12 jours","223,00 €","REJETÉE"],["Échéances 33 à 36","à venir","4 × 223,00 €","À venir"]],"historique":[{"j":12,"canal":"Prélèvement","objet":"Rejet de l'échéance 32","note":"Motif bancaire : provision insuffisante."},{"j":7,"canal":"Courriel","objet":"Relance amiable n° 1","note":"Courriel invitant la cliente à régulariser ou à nous contacter. Sans réponse."}],"attendu":{"du":223,"cause":"Perte d'emploi ou baisse de revenus","solutions":["Lissage du retard sur les échéances restantes","Paiement fractionné du retard (3 versements au plus, sur 90 jours)"],"qui":"Moi-même, dans ma délégation","faits":[["Perte d'emploi et indemnités non versées",["emploi","france travail","chomage","indemnit"]],["Nouvel emploi, salaire le 28",["nouvel emploi","retrouve","travail","28"]]],"mail":[["Montant de la nouvelle mensualité ou du versement",["278,75","278.75","55,75","55.75","223"]],["Dates des prélèvements ou versements",["10","28"]]],"suite":"Lissage : 223 € répartis sur les 4 dernières échéances, soit 55,75 € de plus par mois — mensualités de 278,75 € pour les échéances 33 à 36, durée inchangée. Variante acceptable : un premier versement le jour de l'appel puis le solde le 28 (paiement fractionné). La cliente veut ne pas allonger son prêt : le lissage répond exactement à son attente."}},{"id":"B2","ref":"REC-284316","civ":"Mme","prenom":"Christine","nom":"NGUYEN","age":57,"adresse":"345A allée des Colibris, 47000 Agen","tel":"06 45 56 63 84","email":"c.nguyen@exemple.fr","depuis":"2026","sens":"AE","titre":"Le paiement en 3 fois qui coince","contrats":[["Carte Lysandre — paiement en 3 fois sans frais","Cuisine 7 500 € — 3 × 2 500 €, prélevées le 7","Incident en cours"]],"compte":[["Mensualité 1","payée","2 500,00 €","Payé"],["Mensualité 2","payée","2 500,00 €","Payé"],["Mensualité 3","il y a 6 jours","2 500,00 €","REJETÉE"]],"historique":[{"j":6,"canal":"Prélèvement","objet":"Rejet de la mensualité 3","note":"Motif bancaire : provision insuffisante."},{"j":1,"canal":"SMS","objet":"Relance amiable","note":"SMS : « Votre paiement de 2 500 € n'a pu être prélevé. Merci de nous contacter. »"}],"attendu":{"du":2500,"cause":"Dépense imprévue","solutions":["Paiement fractionné du retard (3 versements au plus, sur 90 jours)"],"qui":"Moi-même, dans ma délégation","plan":2500,"faits":[["Crédit refusé par sa banque",["refus","banque","revolving","credit"]],["800 € disponibles aujourd'hui",["800"]]],"mail":[["Montants et dates des trois versements",["800","850"]]],"suite":"Paiement fractionné dans la délégation : 800 € par carte pendant l'appel, puis 850 € à 30 jours et 850 € à 60 jours (total 2 500 €). Le paiement en 6 fois demandé dépasse la délégation : on ne le promet pas, on montre ce qui est possible."}},{"id":"B3","ref":"REC-197725","civ":"M.","prenom":"Georges","nom":"PECOURT","age":61,"adresse":"13 rue de la Liberté, 07000 Privas","tel":"06 45 65 29 14","email":"g.pecourt@exemple.fr","depuis":"2025","sens":"AE","titre":"Deux échéances et la peur du fichage","contrats":[["Prêt auto 15 600 € (véhicule neuf)","24 mensualités de 650 €, prélevées le 3","Incident caractérisé"]],"compte":[["Échéances 1 à 16","payées","10 400,00 €","Payé"],["Échéance 17","il y a 45 jours","650,00 €","IMPAYÉE"],["Échéance 18","il y a 15 jours","650,00 €","IMPAYÉE"],["Échéances 19 à 24","à venir","6 × 650,00 €","À venir"]],"historique":[{"j":10,"canal":"Courrier","objet":"Information préalable FICP","note":"Incident de paiement caractérisé (deux échéances). Délai de 30 jours pour régulariser avant déclaration à la Banque de France."},{"j":3,"canal":"Téléphone","objet":"Appel sortant — message vocal","note":"Message laissé : demande de rappel."}],"attendu":{"du":1300,"cause":"Dépense imprévue","solutions":["Report de 1 ou 2 échéances en fin de crédit","Paiement fractionné du retard (3 versements au plus, sur 90 jours)"],"qui":"Moi-même, dans ma délégation","ficp":true,"faits":[["Frais de santé avancés, mutuelle en retard",["sante","mutuelle","operation","medical"]],["Remboursement attendu de 1 150 €",["1150","1 150"]]],"mail":[["Solution et montants",["1300","1 300","200","650","report"]],["Effet de l'accord sur le fichage",["ficp","banque de france","fichage"]]],"suite":"Deux solutions dans la délégation : reporter les échéances 17 et 18 en fin de crédit (durée +2 mois), ou fractionner : 200 € par carte aujourd'hui, 1 100 € à réception du remboursement de la mutuelle (sous 3 semaines). Point clé : expliquer calmement qu'un accord conclu pendant le délai de 30 jours suspend la déclaration au FICP, et que la procédure reprend si l'accord n'est pas respecté."}},{"id":"B4","ref":"REC-402981","civ":"M.","prenom":"Karim","nom":"BELKACEM","age":34,"adresse":"8 rue Nationale, 59000 Lille","tel":"06 71 20 44 85","email":"k.belkacem@exemple.fr","depuis":"2025","sens":"AS","titre":"Le bon payeur qui a changé de banque","contrats":[["Prêt personnel 5 400 €","36 mensualités de 150 €, prélevées le 5","Incident en cours"]],"compte":[["Échéances 1 à 14","payées sans incident","2 100,00 €","Payé"],["Échéance 15","il y a 5 jours","150,00 €","REJETÉE — compte clôturé"]],"historique":[{"j":5,"canal":"Prélèvement","objet":"Rejet de l'échéance 15","note":"Motif bancaire : compte clôturé. Aucun incident auparavant."}],"attendu":{"du":150,"cause":"Oubli, changement de banque ou de coordonnées","solutions":["Paiement immédiat du retard"],"qui":"Moi-même, dans ma délégation","plan":150,"tiers":true,"faits":[["Changement de banque, RIB non transmis",["rib","banque","compte","clotur"]],["Frais de 20 € prélevés par l'ancienne banque",["20","frais"]]],"mail":[["Paiement de 150 € et nouveau mandat",["150","mandat","rib"]]],"suite":"Ne rien dire du dossier à sa compagne : demander à parler à M. Belkacem, sans motif. Reconnaître son historique sans incident, expliquer que les 20 € sont des frais de son ancienne banque (Lysandre ne facture aucun frais de recouvrement), encaisser 150 € par carte et envoyer un nouveau mandat de prélèvement."}},{"id":"B5","ref":"REC-356140","evalue":true,"civ":"M.","prenom":"Guillaume","nom":"DESTOMBES","age":46,"adresse":"11 rue Guillaume Tell, 67000 Strasbourg","tel":"07 54 76 11 43","email":"g.destombes@exemple.fr","depuis":"2026","sens":"AS","titre":"Six échéances et plus de solution","contrats":[["Carte de crédit avec réserve d'argent","Utilisation 1 200 € — 12 × 100 €, prélevées le 10","Incident caractérisé"]],"compte":[["Échéance 1","payée","100,00 €","Payé"],["Échéances 2 à 7","des 6 derniers mois","6 × 100,00 €","REJETÉES"],["Échéances 8 à 12","à venir","5 × 100,00 €","À venir"]],"historique":[{"j":21,"canal":"Courrier","objet":"Information préalable FICP","note":"Incident de paiement caractérisé. Sans réponse."},{"j":4,"canal":"Courriel","objet":"Annonce d'appel","note":"Courriel annonçant l'appel d'un conseiller."}],"attendu":{"du":600,"cause":"Difficultés durables (plusieurs dettes)","solutions":["Nouvel échéancier (transmis pour étude)"],"qui":"Service recouvrement — étude du dossier","ficp":true,"aides":true,"faits":[["Séparation, loyer seul avec 1 450 €",["separ","1450","1 450","loyer","650"]],["Autres crédits en retard",["autres credit","deux autres","autre credit","plusieurs"]],["Capacité de 30 € par mois",["30"]]],"mail":[["Demande transmise et délai de réponse",["5 jours","cinq jours","etude","transmis"]],["Versement d'attente",["30"]],["Information sur le surendettement",["surendettement","banque de france"]]],"suite":"Situation durable avec plusieurs créanciers : le nouvel échéancier dépasse la délégation — le conseiller transmet pour étude (réponse sous 5 jours ouvrés), accepte un versement d'attente de 30 € et informe de la possibilité de déposer un dossier de surendettement à la Banque de France. Le FICP s'explique sans servir de menace. Aucune pression sur les 600 €."}},{"id":"B6","ref":"REC-268893","evalue":true,"civ":"M.","prenom":"Franck","nom":"FERON","age":38,"adresse":"223 boulevard Clemenceau, 62290 Nœux-les-Mines","tel":"07 23 44 61 50","email":"f.feron@exemple.fr","depuis":"2024","sens":"AE","titre":"« Je rattrape tout le mois prochain »","contrats":[["Prêt personnel 13 680 €","36 mensualités de 380 €, prélevées le 15","Incident caractérisé"]],"compte":[["Échéances 1 à 18","payées","6 840,00 €","Payé"],["Échéance 19","il y a 50 jours","380,00 €","IMPAYÉE"],["Échéance 20","il y a 20 jours","380,00 €","IMPAYÉE"],["Échéances 21 à 36","à venir","16 × 380,00 €","À venir"]],"historique":[{"j":12,"canal":"Courrier","objet":"Information préalable FICP","note":"Incident de paiement caractérisé (deux échéances)."},{"j":8,"canal":"Courriel","objet":"Relance amiable","note":"Demande de rappel dans les meilleurs délais."}],"attendu":{"du":760,"cause":"Difficultés de l'activité professionnelle","solutions":["Paiement fractionné du retard (3 versements au plus, sur 90 jours)"],"qui":"Moi-même, dans ma délégation","plan":760,"ficp":true,"faits":[["Chantiers annulés",["chantier","annul"]],["1 900 € attendus le 12",["1900","1 900","12"]]],"mail":[["100 € aujourd'hui et 660 € le 12",["100","660"]],["Effet de l'accord sur le fichage",["ficp","banque de france","fichage"]]],"suite":"Transformer « le mois prochain » en engagement précis : 100 € par carte pendant l'appel, 660 € le 12 du mois prochain par virement (date du paiement de son client), soit 760 €. Expliquer qu'un accord conclu dans le délai suspend la déclaration au FICP."}}],"energie":[{"id":"E1","ref":"REC-520384","civ":"M.","prenom":"Thomas","nom":"LEMAIRE","age":29,"adresse":"4 rue Solférino, 59000 Lille","tel":"06 12 58 70 33","email":"t.lemaire@exemple.fr","depuis":"2024","sens":"AS","titre":"La facture restée dans les indésirables","contrats":[["Électricité — résidence principale","Facture électronique bimestrielle, paiement par virement","Impayé"]],"compte":[["Facture bimestrielle","émise il y a 34 jours","186,40 €","IMPAYÉE — échue depuis 20 jours"]],"historique":[{"j":34,"canal":"Courriel","objet":"Facture disponible","note":"Courriel automatique : facture disponible dans l'espace client."},{"j":6,"canal":"Courrier","objet":"Premier rappel","note":"Courrier de rappel de paiement."}],"attendu":{"du":186.4,"cause":"Oubli, changement de banque ou de coordonnées","solutions":["Paiement immédiat"],"qui":"Moi-même, dans ma délégation","plan":186.4,"faits":[["Courriels dans les indésirables",["indesirable","spam","pas recu","rien recu"]]],"mail":[["Paiement de 186,40 €",["186"]],["Mensualisation ou prélèvement",["mensualis","prelevement"]]],"suite":"Client de bonne foi : pas de reproche. Encaisser 186,40 € par carte pendant l'appel, puis proposer la mensualisation avec prélèvement automatique pour éviter les oublis."}},{"id":"E2","ref":"REC-611092","civ":"Mme","prenom":"Nadia","nom":"FERHAT","age":44,"adresse":"17 rue de Lille, 59200 Tourcoing","tel":"06 38 21 57 90","email":"n.ferhat@exemple.fr","depuis":"2021","sens":"AE","titre":"La facture de régularisation","contrats":[["Offre duo électricité et gaz","Mensualisée 95 €/mois, prélèvement","Impayé"]],"compte":[["Mensualités de l'année","payées","12 × 95,00 €","Payé"],["Facture de régularisation annuelle","échue depuis 10 jours","642,00 €","IMPAYÉE"],["Consommation","sur un an","+ 40 %","Relevés réels"]],"historique":[{"j":14,"canal":"Courrier","objet":"Facture de régularisation","note":"Consommation réelle supérieure aux mensualités : 642 € à régler."},{"j":4,"canal":"Courrier","objet":"Premier rappel","note":"Rappel de paiement."}],"attendu":{"du":642,"cause":"Contestation de la somme","solutions":["Échéancier sans frais (6 mensualités au plus)"],"qui":"Moi-même, dans ma délégation","plan":642,"faits":[["Trois enfants gardés à domicile",["enfant","garde","assistante maternelle"]],["Capacité d'environ 100 € par mois",["100"]]],"mail":[["6 mensualités de 107 €",["107"]],["Ajustement des mensualités",["ajust","mensualite"]]],"suite":"Expliquer la régularisation (consommation réelle +40 % depuis la garde des enfants). Échéancier sans frais de 6 mensualités de 107 € (642 €), dans la délégation, et ajustement des mensualités à la hausse pour éviter une nouvelle régularisation. Les 10 mensualités demandées supposent l'accord du superviseur : on ne les promet pas."}},{"id":"E3","ref":"REC-433817","civ":"M.","prenom":"Kévin","nom":"DUMONT","age":23,"adresse":"9 rue de Famars, 59300 Valenciennes","tel":"07 61 04 25 98","email":"k.dumont@exemple.fr","depuis":"2025","sens":"AS","titre":"« C'est pas grand-chose, 110 € »","contrats":[["Box fibre et forfait mobile","54,99 €/mois, prélèvement","Impayé — service restreint dans 5 jours"]],"compte":[["Facture du mois dernier","rejetée","54,99 €","REJETÉE"],["Facture du mois","rejetée","54,99 €","REJETÉE"]],"historique":[{"j":25,"canal":"SMS","objet":"Relance","note":"Prélèvement rejeté."},{"j":3,"canal":"SMS","objet":"Relance","note":"Deuxième prélèvement rejeté. Service restreint annoncé."}],"attendu":{"du":109.98,"cause":"Dépense imprévue","solutions":["Report de la date limite (15 jours au plus)","Paiement immédiat"],"qui":"Moi-même, dans ma délégation","plan":109.98,"faits":[["Caution de logement payée",["caution","logement"]],["Salaire le 5, dans 9 jours",["salaire","5","9 jours"]]],"mail":[["54,99 € aujourd'hui et 54,99 € à la date du salaire",["54,99","54.99"]]],"suite":"Expliquer sans menace le passage en service restreint. 54,99 € par carte pendant l'appel et report de la date limite de l'autre facture à la date du salaire (9 jours, dans la délégation de 15 jours)."}},{"id":"E4","ref":"REC-702266","civ":"Mme","prenom":"Josiane","nom":"PETIT","age":74,"adresse":"6 rue de la Croix, 59600 Maubeuge","tel":"03 27 00 45 12","email":"—","depuis":"1998","sens":"AE","titre":"« Vous n'avez pas le droit de couper en hiver »","contrats":[["Électricité — résidence principale","Chauffage électrique, paiement par chèque","Impayé — janvier"]],"compte":[["Facture de novembre","impayée","159,00 €","IMPAYÉE"],["Facture de janvier","impayée","159,00 €","IMPAYÉE"],["Attestation chèque énergie","—","—","Non transmise"]],"historique":[{"j":30,"canal":"Courrier","objet":"Premier rappel","note":"Rappel de paiement."},{"j":9,"canal":"Courrier","objet":"Deuxième rappel","note":"Mention : une réduction de puissance pourra intervenir."}],"attendu":{"du":318,"cause":"Difficultés durables (plusieurs dettes)","solutions":["Échéancier sans frais (6 mensualités au plus)"],"qui":"Moi-même, dans ma délégation","plan":318,"aides":true,"faits":[["Retraite de 980 €",["980","retraite"]],["Chèque énergie reçu, attestation jamais envoyée",["cheque energie","attestation"]]],"mail":[["6 mensualités de 53 €",["53"]],["Attestation du chèque énergie",["attestation","cheque energie"]],["FSL",["fsl","solidarite pour le logement"]]],"suite":"Information exacte : aucune coupure pendant la trêve hivernale, mais la puissance peut être réduite — sauf si l'attestation du chèque énergie est transmise. Inviter à l'envoyer. Échéancier de 6 mensualités de 53 € (318 €) et information sur le FSL."}},{"id":"E5","ref":"REC-584430","evalue":true,"civ":"M.","prenom":"Patrick","nom":"ROUSSEL","age":52,"adresse":"31 route d'Arras, 59500 Douai","tel":"06 84 12 39 07","email":"p.roussel@exemple.fr","depuis":"2019","sens":"AS","titre":"Facture estimée, client furieux","contrats":[["Gaz naturel — résidence principale","Paiement à réception","Impayé"]],"compte":[["Abonnement","facture émise il y a 40 jours","68,00 €","IMPAYÉ"],["Consommation estimée (index 15 120)","même facture","444,00 €","IMPAYÉ"],["Relevés transmis par le client","sur 12 mois","aucun","—"]],"historique":[{"j":40,"canal":"Courrier","objet":"Facture","note":"Facture de 512 € sur index estimé (15 120)."},{"j":20,"canal":"Courrier","objet":"Premier rappel","note":""},{"j":8,"canal":"Courrier","objet":"Deuxième rappel","note":""}],"attendu":{"du":512,"cause":"Contestation de la somme","solutions":["Paiement immédiat"],"qui":"Moi-même, dans ma délégation","plan":68,"conteste":444,"faits":[["Absent trois mois",["absent","trois mois","3 mois","route"]],["Index réel 14 386",["14386","14 386"]]],"mail":[["Abonnement de 68 € réglé",["68"]],["Index transmis et facture rectifiée",["14386","14 386","rectif"]],["Relance suspendue sur la consommation",["suspend","reclamation"]]],"suite":"Poser calmement une limite à l'insulte. Séparer : la consommation estimée (444 €) est contestée — relevé 14 386 recueilli, réclamation enregistrée, facture rectificative à venir, relance suspendue sur cette part. L'abonnement (68 €) n'est pas contesté : il est réglé pendant l'appel."}},{"id":"E6","ref":"REC-655708","evalue":true,"civ":"Mme","prenom":"Élodie","nom":"GARNIER","age":31,"adresse":"12 rue Gambetta, 62000 Arras","tel":"06 27 93 18 64","email":"e.garnier@exemple.fr","depuis":"2022","sens":"AE","titre":"« Je résilie, vous pouvez courir »","contrats":[["Fibre et forfait mobile","49,99 €/mois, prélèvement","SERVICE RESTREINT depuis 4 jours"]],"compte":[["Factures des 3 derniers mois","rejetées","3 × 49,99 €","REJETÉES"]],"historique":[{"j":60,"canal":"SMS","objet":"Relance","note":""},{"j":30,"canal":"Courrier","objet":"Relance","note":""},{"j":4,"canal":"Système","objet":"Service restreint","note":"Appels sortants suspendus, réception et urgences maintenues."}],"attendu":{"du":149.97,"cause":"Dépense imprévue","solutions":["Échéancier sans frais (6 mensualités au plus)"],"qui":"Moi-même, dans ma délégation","plan":149.97,"faits":[["Réparation de voiture de 900 €",["voiture","900","reparation"]],["Besoin de la ligne pour le travail",["travail","client"]]],"mail":[["3 versements de 49,99 €",["49,99","49.99","50"]],["Rétablissement de la ligne",["retabli","ligne"]]],"suite":"Ne pas répondre à la provocation. Rappeler sans menace que la somme reste due même en cas de départ. Échéancier de 3 versements de 49,99 € — premier versement pendant l'appel, rétablissement du service sous 24 h. Transfert au service fidélisation seulement après l'accord."}}],"assurance":[{"id":"A1","ref":"REC-628032","civ":"M.","prenom":"Jean-Bernard","nom":"DUVAL","age":54,"societe":"ArtiBat'","adresse":"20 rue des Lys, 62000 Arras","tel":"06 13 82 38 85","email":"contact@artibat.exemple.fr","depuis":"2014","sens":"AE","titre":"L'artisan qui attend ses aides","contrats":[["Multirisque professionnelle (RC pro)","120 €/mois, prélevés le 5","Impayé"],["Véhicule utilitaire","130 €/mois, prélevés le 5","Impayé"]],"compte":[["Cotisation RC pro du mois","rejetée","120,00 €","REJETÉE"],["Cotisation véhicule utilitaire du mois","rejetée","130,00 €","REJETÉE"]],"historique":[{"j":1,"canal":"Téléphone","objet":"Appel sortant — message vocal","note":"Message laissé au gérant : demande de rappel."}],"attendu":{"du":250,"cause":"Difficultés de l'activité professionnelle","solutions":["Paiement fractionné (3 versements au plus, sur 90 jours)"],"qui":"Moi-même, dans ma délégation","plan":250,"faits":[["Client en faillite",["faillite","client"]],["Aides versées en trois fois",["aide","3 du mois","le 3"]]],"mail":[["84 €, 83 €, 83 €",["84","83"]],["Dates calées sur les aides",["3"]]],"suite":"Paiement en 3 fois calé sur les versements d'aides : 84 € pendant l'appel, 83 € le 3 du mois prochain, 83 € le 3 du mois suivant (250 €), dans la délégation. Rappeler sans menace qu'un contrat suspendu ne garantit plus les chantiers."}},{"id":"A2","ref":"REC-765432","civ":"Mme","prenom":"Catherine","nom":"MEYER","age":38,"adresse":"6 rue de la Carrière dorée, 59310 Orchies","tel":"06 74 65 45 07","email":"c.meyer@exemple.fr","depuis":"2017","sens":"AE","titre":"Le restaurant fermé pour trois mois","contrats":[["Habitation","21 €/mois, prélevés le 10","Impayé"],["Auto","55 €/mois, prélevés le 10","Impayé"]],"compte":[["Habitation — 2 mois","rejetés","2 × 21,00 €","REJETÉS"],["Auto — 2 mois","rejetés","2 × 55,00 €","REJETÉS"]],"historique":[{"j":5,"canal":"Courriel","objet":"Relance amiable","note":"Invitation à rappeler dans les meilleurs délais."}],"attendu":{"du":152,"cause":"Perte d'emploi ou baisse de revenus","solutions":["Paiement fractionné (3 versements au plus, sur 90 jours)"],"qui":"Moi-même, dans ma délégation","plan":152,"faits":[["Chômage partiel",["chomage partiel","72"]],["Réouverture dans un mois",["un mois","1 mois","reouvr","reprise"]]],"mail":[["3 versements (51 €, 51 €, 50 €)",["51","50"]],["Premier versement après la reprise",["30 jours","mois prochain","reprise"]]],"suite":"Accueillir l'émotion d'abord. Paiement en 3 fois avec premier versement différé de 30 jours (reprise de l'activité) : 51 €, 51 €, 50 € (152 €), dans la délégation. Expliquer sans dramatiser qu'à défaut, les garanties pourraient être suspendues."}},{"id":"A3","ref":"REC-811245","civ":"Mme","prenom":"Sylvie","nom":"HOUZÉ","age":49,"societe":"Le Paradis des Fleurs","adresse":"15 Grand Place, 60200 Compiègne","tel":"06 84 77 91 23","email":"paradisdesfleurs@exemple.fr","depuis":"2017","sens":"AS","titre":"La fleuriste qui ne répond plus","contrats":[["Auto","89 €/mois","Impayé"],["RC pro","85 €/mois","Impayé"],["Prévoyance","121 €/mois","Impayé"],["Habitation","29 €/mois","Impayé"],["Santé","57 €/mois","Impayé"]],"compte":[["Cotisations du mois — 5 contrats","rejetées","381,00 €","REJETÉES"]],"historique":[{"j":15,"canal":"Courriel","objet":"Relance amiable n° 1","note":""},{"j":7,"canal":"Téléphone","objet":"Appel sortant — message vocal","note":"Sans rappel."},{"j":2,"canal":"Courriel","objet":"Relance amiable n° 2","note":""}],"attendu":{"du":381,"cause":"Difficultés de l'activité professionnelle","solutions":["Paiement fractionné (3 versements au plus, sur 90 jours)"],"qui":"Moi-même, dans ma délégation","plan":381,"faits":[["Chiffre d'affaires en baisse de 24 %",["24","chiffre","baisse"]],["Contrat de fleurissement à signer sous 8 jours",["seminaire","contrat","fleurissement","8 jours"]]],"mail":[["3 versements de 127 €",["127"]],["Accord global sur les 5 contrats",["5 contrats","cinq contrats","ensemble"]]],"suite":"Questions ouvertes sur l'activité, sans reproche sur les relances ignorées. Accord global sur les 5 contrats : 3 versements de 127 € (381 €), le premier différé de 30 jours au plus pour coïncider avec les premières prestations."}},{"id":"A4","ref":"REC-210945","civ":"Mme","prenom":"Sofia","nom":"RAMIREZ","age":36,"adresse":"5 rue de la Paix, 59200 Tourcoing","tel":"06 23 45 67 89","email":"s.ramirez@exemple.fr","depuis":"2020","sens":"AS","titre":"Freelance et aidante","contrats":[["Auto","98 €/mois, prélevés le 15","Impayé"],["Habitation","52 €/mois, prélevés le 15","Impayé"]],"compte":[["Cotisations des 3 derniers mois","rejetées","3 × 150,00 €","REJETÉES"],["Mise en demeure","prévue en fin de semaine","—","À venir"]],"historique":[{"j":40,"canal":"Téléphone","objet":"Message vocal","note":"Sans rappel."},{"j":12,"canal":"Téléphone","objet":"Message vocal","note":"Sans rappel."}],"attendu":{"du":450,"cause":"Difficultés durables (plusieurs dettes)","solutions":["Paiement fractionné (3 versements au plus, sur 90 jours)"],"qui":"Moi-même, dans ma délégation","plan":450,"aides":true,"faits":[["Père âgé à charge",["pere","aidante","age"]],["Capacité de 150 € par mois",["150"]]],"mail":[["3 versements de 150 €",["150"]],["Point conseil budget ou CCAS",["point conseil budget","ccas"]]],"suite":"S'intéresser à la situation avant la somme. Paiement en 3 fois de 150 € (450 €) dans la délégation, et orientation vers un Point conseil budget ou le CCAS. Caler la date de prélèvement sur ses rentrées."}},{"id":"A5","ref":"REC-190451","evalue":true,"civ":"M.","prenom":"Jean","nom":"DEMARQUE","age":66,"adresse":"26 boulevard de l'Ouest, 60500 Chantilly","tel":"07 53 73 60 12","email":"j.demarque@exemple.fr","depuis":"2017","sens":"AS","titre":"« Je ne paierai pas, par principe »","contrats":[["Auto","64 €/mois, prélevés le 1er","Résiliation demandée — NON TRAITÉE"],["Habitation","32 €/mois, prélevés le 1er","Impayé"]],"compte":[["Auto — 2 derniers mois","rejetés","2 × 64,00 €","REJETÉS"],["Habitation — 2 derniers mois","rejetés","2 × 32,00 €","REJETÉS"],["Mandat de prélèvement","—","—","Révoqué par le client"]],"historique":[{"j":62,"canal":"Courrier recommandé","objet":"Demande de résiliation du contrat auto","note":"Véhicule vendu. Courrier reçu — AUCUN TRAITEMENT ENREGISTRÉ."},{"j":30,"canal":"Courrier","objet":"Relance","note":""},{"j":10,"canal":"Courrier","objet":"Relance","note":""}],"attendu":{"du":192,"cause":"Erreur de l'entreprise","solutions":["Annulation des cotisations non dues et règlement du solde"],"qui":"Moi-même, dans ma délégation","plan":64,"faits":[["Voiture vendue, résiliation par recommandé",["vendu","recommande","resiliation"]],["Aucune réponse de Néréis",["pas de reponse","aucune reponse","personne","pas traite"]]],"mail":[["Résiliation de l'auto appliquée et 128 € annulés",["128","resili","annul"]],["64 € réglés pour l'habitation",["64"]]],"suite":"Reconnaître l'erreur sans se défendre. Appliquer la résiliation de l'auto à la date où elle aurait dû prendre effet et annuler les 128 € (délégation). Le solde (habitation, 64 €) est dû : l'expliquer et l'encaisser pendant l'appel ; remettre en place un mode de paiement pour l'habitation."}},{"id":"A6","ref":"REC-160925","evalue":true,"civ":"Mme","prenom":"Marie","nom":"BROCHE","age":37,"adresse":"15 avenue des Bleuets, 19000 Tulle (ancienne adresse)","tel":"07 14 28 51 32","email":"m.broche@exemple.fr","depuis":"2021","sens":"AE","titre":"« C'est à lui de payer »","contrats":[["Habitation — logement de Tulle","Souscripteurs : Mme Marie Broche et M. Pierre Brunet — 38 €/mois sur compte joint. Clause : chaque souscripteur est tenu de la totalité","Impayé"]],"compte":[["Cotisations des 3 derniers mois","rejetées — compte joint clôturé","3 × 38,00 €","REJETÉES"]],"historique":[{"j":1,"canal":"Téléphone","objet":"Appel sortant — message vocal","note":"Message laissé à Mme Broche : demande de rappel."}],"attendu":{"du":114,"cause":"Séparation ou changement de situation familiale","solutions":["Règlement de sa part par un souscripteur"],"qui":"Moi-même, dans ma délégation","plan":57,"faits":[["Séparation, a quitté le logement",["separ","quitte","ex"]],["Coordonnées de M. Brunet",["brunet","06 04"]]],"mail":[["57 € réglés (sa part)",["57"]],["Relance de M. Brunet pour le solde",["brunet","solde"]],["Demande de sortie du contrat transmise",["sortie","retrait","service contrats","avenant"]]],"suite":"Expliquer calmement l'engagement des deux souscripteurs. Accepter qu'elle règle sa part (57 €) pendant l'appel, relancer M. Brunet pour le solde (57 €) et transmettre au service contrats sa demande de sortie du contrat. Ne jamais dire « ce n'est pas notre problème » ni la renvoyer vers son ex."}}]},"REGLES":{"banque":{"marges":["**Toujours en premier** : le paiement immédiat du retard (carte bancaire par téléphone ou virement).","**Paiement fractionné du retard** : jusqu'à 3 versements sur 90 jours au plus — vous décidez.","**Lissage du retard** sur les échéances restantes (mensualité augmentée, durée inchangée) — vous décidez.","**Report d'échéances en fin de crédit** : 1 ou 2 échéances — vous décidez ; de 3 à 6 — accord du superviseur.","**Nouvel échéancier** (jusqu'à 36 mois) : étude par le service, réponse sous 5 jours ouvrés — vous transmettez, vous ne promettez rien. En attendant, vous pouvez accepter un versement d'attente, quel qu'en soit le montant."],"regles":["Lysandre ne facture **aucun frais de recouvrement** : sans titre exécutoire, ils restent à la charge du créancier (art. L. 111-8 du code des procédures civiles d'exécution).","Vous ne parlez de la dette **qu'au titulaire du contrat**, après vérification de son identité. Jamais à un proche.","**FICP** : deux échéances mensuelles impayées constituent un incident de paiement caractérisé. Le client reçoit une information préalable et dispose de 30 jours pour régulariser ; un accord amiable conclu pendant ce délai suspend la déclaration à la Banque de France — si l'accord n'est pas respecté, la procédure reprend. Vous l'expliquez, vous ne vous en servez jamais comme d'une menace.","Difficultés durables : informez le client qu'il peut déposer un **dossier de surendettement** auprès de la Banque de France."]},"energie":{"marges":["**Toujours en premier** : le paiement immédiat (carte bancaire par téléphone ou virement).","**Report de la date limite de paiement** : jusqu'à 15 jours — vous décidez.","**Échéancier sans frais** : jusqu'à 6 mensualités — vous décidez ; de 7 à 12 — accord du superviseur.","**Prévention** : proposez la mensualisation et le prélèvement automatique, et l'ajustement des mensualités si la consommation a changé.","**Télécom** : après deux factures impayées, la ligne passe en service restreint (appels sortants suspendus, réception et numéros d'urgence maintenus). Le service est rétabli sous 24 h dès que le retard est payé ou qu'un échéancier est accepté et son premier versement encaissé."],"regles":["Volténa ne facture **aucun frais de recouvrement** : sans titre exécutoire, ils restent à la charge du créancier (art. L. 111-8 du code des procédures civiles d'exécution).","Vous ne parlez de la dette **qu'au titulaire du contrat**, après vérification de son identité. Jamais à un proche.","**Trêve hivernale** (du 1er novembre au 31 mars, résidence principale) : aucune coupure d'électricité ni de gaz pour impayé. La réduction de puissance électrique reste possible, sauf pour les bénéficiaires du chèque énergie qui ont transmis leur attestation. Vous informez, vous ne menacez jamais.","Client en difficulté : informez-le de l'existence du **Fonds de solidarité pour le logement (FSL)**, sollicité auprès des services sociaux du département, et du chèque énergie.","**Contestation de facture** : la partie contestée est enregistrée en réclamation et sa relance suspendue jusqu'à la réponse ; la partie non contestée reste due.","Les offres commerciales relèvent du service fidélisation : vous pouvez y transférer le client **après** l'accord sur la dette."]},"assurance":{"marges":["**Toujours en premier** : le paiement immédiat de l'arriéré (carte bancaire par téléphone ou virement).","**Paiement fractionné** : jusqu'à 3 versements sur 90 jours au plus — vous décidez. Le premier versement peut être différé de 30 jours au plus — vous décidez. De 4 à 6 versements — accord du superviseur.","**Contrat à deux souscripteurs** : vous pouvez accepter qu'un souscripteur règle sa part et relancer l'autre pour le solde. Le retrait d'un nom du contrat relève du service contrats : vous transmettez.","**Courrier de résiliation reçu et non traité** : vous appliquez la résiliation à la date où elle aurait dû prendre effet et vous annulez les cotisations postérieures — vous décidez.","**Prévention** : vérifiez le mandat de prélèvement et la date de prélèvement ; proposez de la caler sur la date de revenus du client."],"regles":["Néréis ne facture **aucun frais de recouvrement** : sans titre exécutoire, ils restent à la charge du créancier (art. L. 111-8 du code des procédures civiles d'exécution).","Vous ne parlez de la dette **qu'au titulaire du contrat**, après vérification de son identité. Jamais à un proche.","**Code des assurances, art. L. 113-3** : faute de paiement d'une cotisation dans les 10 jours de son échéance, la garantie peut être suspendue 30 jours après une mise en demeure, et le contrat résilié 10 jours plus tard. Un contrat suspendu mais non résilié reprend effet pour l'avenir le lendemain, à midi, du paiement de l'arriéré. Vous informez le client de ces conséquences — notamment l'absence de garantie en cas de sinistre —, vous ne vous en servez jamais comme d'une menace.","Client en difficulté : informez-le qu'il peut se faire aider gratuitement par un **Point conseil budget** ou le **CCAS** de sa commune."]}},"CSS_BILAN":"body{font-family:Helvetica,Arial,sans-serif;color:#1f2a3a;max-width:860px;margin:24px auto;padding:0 20px;font-size:14px}\n.fictif{background:#b3261e;color:#fff;text-align:center;font-size:11px;font-weight:700;letter-spacing:1.4px;padding:4px;text-transform:uppercase}\nh1{color:#0d2b56;font-family:Georgia,serif;font-size:22px;margin:16px 0 4px}h2{color:#0d2b56;font-size:16px;margin:22px 0 8px;border-bottom:2px solid #c8a96b;padding-bottom:4px}\ntable{width:100%;border-collapse:collapse}th{text-align:left;width:210px;color:#5f6f86;font-weight:600;vertical-align:top;padding:6px 8px;border-bottom:1px solid #d5dfec}td{padding:6px 8px;border-bottom:1px solid #d5dfec}\n\n.note12{background:#e8f1fc;border-left:4px solid #c8a96b;padding:8px 12px}\n.rep{border:1px solid #d5dfec;border-radius:6px;padding:14px 18px;white-space:pre-wrap;line-height:1.5}\nli{margin:4px 0}.ok{color:#1d7a46}.ko{color:#b3261e}.mi{color:#9a6a10}.pied{margin-top:28px;font-size:11px;color:#5f6f86;text-align:center}"};
+
+const JOURS = { 2: 'Journée 2 — Recouvrer la créance' };
+const EMOTIONS = ['Calme', 'Gêné', 'Inquiet', 'Agacé', 'Agressif', 'Abattu'];
+const st = { secteur: null, jour: 2, client: null, onglet: 'fiche', notes: {}, saisies: {}, identite: null };
+
+function charger() { try { const s = JSON.parse(sessionStorage.getItem('rec_outil') || 'null'); if (s) Object.assign(st, s); } catch (e) {} }
+function sauver() { try { sessionStorage.setItem('rec_outil', JSON.stringify({ secteur: st.secteur, notes: st.notes, saisies: st.saisies, identite: st.identite })); } catch (e) {} }
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’']/g, ' ').replace(/\s+/g, ' ');
+const dateJ = j => { const d = new Date(); d.setDate(d.getDate() - j); return d.toLocaleDateString('fr-FR'); };
+const euro = v => { const n = parseFloat(String(v || '').replace(/[^0-9,.-]/g, '').replace(',', '.')); return isNaN(n) ? null : n; };
+const fmt = n => n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+const casDe = () => DATA.CAS[st.secteur];
+const cle = c => st.secteur + ':' + c.id;
+const ONGLETS = [['fiche', 'Fiche client'], ['compte', 'Situation du compte'], ['hist', 'Historique'], ['proc', 'Marges et règles'], ['cr', 'Appel et accord']];
+
+function init() {
+  charger();
+  const q = new URLSearchParams(location.search);
+  const p = q.get('secteur'); if (p && DATA.CAS[p]) st.secteur = p;
+  document.querySelectorAll('.secteurs button').forEach(b => b.onclick = () => { st.secteur = b.dataset.s; st.client = null; sauver(); demarrer(); });
+  $('#chg-secteur').onclick = () => { if (confirm('Changer de secteur ? Les saisies en cours restent conservées pour chaque secteur.')) { st.secteur = null; st.client = null; sauver(); demarrer(); } };
+  $('#recherche').oninput = liste;
+  demarrer();
+}
+function demarrer() {
+  const ok = !!st.secteur;
+  $('#ecran-secteur').hidden = ok; $('#app').hidden = !ok;
+  $('#h-jour').textContent = JOURS[st.jour];
+  if (!ok) { $('#h-ent').textContent = 'Outil conseiller'; $('#h-act').textContent = 'Recouvrement amiable'; return; }
+  const E = DATA.ENTREPRISES[st.secteur];
+  $('#h-ent').textContent = E.nom; $('#h-act').textContent = E.activite;
+  $('#h-jour').textContent = JOURS[st.jour];
+  liste(); vue();
+}
+function liste() {
+  const q = norm($('#recherche').value);
+  $('#liste').innerHTML = casDe().filter(c => !q || norm(c.prenom + ' ' + c.nom + ' ' + c.ref + ' ' + (c.societe || '')).includes(q)).map(c =>
+    `<button class="cli ${st.client === c.id ? 'on' : ''}" data-id="${c.id}">${st.saisies[cle(c)] && st.saisies[cle(c)].fige ? '<span class="badge">Accord</span>' : ''}<div class="nm">${esc(c.civ + ' ' + c.prenom + ' ' + c.nom)}</div><div class="rf">${esc(c.ref)} · ${c.sens === 'AS' ? 'à appeler' : 'appel entrant'}${c.evalue ? ' · <b class="ev">cas évalué</b>' : ''}</div></button>`).join('') || '<p class="note" style="padding:14px">Aucun dossier trouvé.</p>';
+  document.querySelectorAll('.cli').forEach(b => b.onclick = () => { st.client = b.dataset.id; st.onglet = 'fiche'; liste(); vue(); });
+}
+function vue() {
+  const c = casDe().find(x => x.id === st.client);
+  if (!c) { $('#vue').innerHTML = `<div class="vide"><h2 class="serif">Aucun dossier ouvert</h2><p>Sélectionnez à gauche le dossier du client que vous appelez, ou qui vous appelle.</p></div>`; return; }
+  $('#vue').innerHTML = `
+    <div class="ident"><div><h2>${esc(c.civ + ' ' + c.prenom + ' ' + c.nom)}${c.societe ? ' — ' + esc(c.societe) : ''}</h2><div class="meta">Dossier ${esc(c.ref)} · ${esc(c.tel)} · client depuis ${esc(c.depuis)}</div></div><span class="sens ${c.sens}">${c.sens === 'AS' ? 'Appel sortant' : 'Appel entrant'}</span></div>
+    <div class="onglets">${ONGLETS.map(o => `<button data-o="${o[0]}" class="${st.onglet === o[0] ? 'on' : ''}">${o[1]}</button>`).join('')}</div>
+    <div class="corps"><div class="pan" id="pan"></div><div class="cote">${coteNotes(c)}${coteRepere()}</div></div>`;
+  document.querySelectorAll('.onglets button').forEach(b => b.onclick = () => { st.onglet = b.dataset.o; vue(); });
+  const n = $('#notes'); n.oninput = () => { st.notes[cle(c)] = n.value; sauver(); };
+  ({ fiche: pFiche, compte: pCompte, hist: pHist, proc: pProc, cr: pCR })[st.onglet](c);
+  if (c.evalue) verrouiller();
+}
+function coteNotes(c) {
+  return `<div class="carte"><h3>Notes d'appel</h3><textarea id="notes" rows="9" placeholder="Situation, montants, dates, objections…">${esc(st.notes[cle(c)] || '')}</textarea><p class="note" style="margin-top:6px">Vos notes restent dans cet onglet pendant la séance.</p></div>`;
+}
+function coteRepere() {
+  return `<div class="carte delais"><h3>L'appel en 6 temps</h3>${['Identifier le titulaire, puis annoncer l\'objet', 'Faire exprimer la situation, écouter, reformuler', 'Proposer d\'abord le paiement immédiat', 'Négocier dans sa délégation, sinon transmettre', 'Obtenir montant + date + moyen de paiement', 'Récapituler, annoncer l\'e-mail de confirmation'].map((t, i) => `<p><b>${i + 1}.</b> ${esc(t)}</p>`).join('')}<p class="src">Jamais : de menace, de frais de recouvrement, d'information donnée à un tiers.</p></div>`;
+}
+function pFiche(c) {
+  $('#pan').innerHTML = `<div class="carte"><h3>Identité</h3><dl class="kv"><dt>Client</dt><dd>${esc(c.civ + ' ' + c.prenom + ' ' + c.nom)}</dd>${c.societe ? `<dt>Entreprise</dt><dd>${esc(c.societe)}</dd>` : ''}<dt>Âge</dt><dd>${c.age} ans</dd><dt>Adresse</dt><dd>${esc(c.adresse)}</dd><dt>Téléphone</dt><dd>${esc(c.tel)}</dd><dt>E-mail</dt><dd>${esc(c.email)}</dd><dt>Client depuis</dt><dd>${esc(c.depuis)}</dd><dt>N° de dossier</dt><dd>${esc(c.ref)}</dd></dl></div>
+  <div class="carte"><h3>Contrats</h3><table><tr><th>Contrat</th><th>Conditions</th><th>Statut</th></tr>${c.contrats.map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td class="${/Impay|Incident|RESTREINT|NON TRAIT/i.test(r[2]) ? 'alerte' : ''}">${esc(r[2])}</td></tr>`).join('')}</table></div>`;
+}
+function pCompte(c) {
+  $('#pan').innerHTML = `<div class="carte"><h3>Situation du compte</h3><table><tr><th>Élément</th><th>Date</th><th>Montant</th><th>Statut</th></tr>${c.compte.map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td class="${/REJET|IMPAY|Non transmise|Révoqué/i.test(r[3]) ? 'alerte' : ''}">${esc(r[3])}</td></tr>`).join('')}</table>
+  <p class="note" style="margin-top:8px">Calculez vous-même la somme due avant l'appel : elle vous sera demandée dans l'onglet « Appel et accord ».</p></div>`;
+}
+function histo(c) {
+  const h = c.historique.map(x => Object.assign({}, x));
+  const s = st.saisies[cle(c)];
+  if (s && s.fige) h.push({ j: 0, canal: 'Téléphone', objet: 'Accord enregistré — ' + s.solution, note: 'Plan : ' + planTexte(s) + '. Confirmation envoyée par e-mail.', neu: true });
+  return h.sort((a, b) => b.j - a.j);
+}
+function pHist(c) {
+  $('#pan').innerHTML = `<div class="carte"><h3>Historique des contacts</h3>${histo(c).map(x => `<div class="hist ${x.neu ? 'new' : ''}"><div class="d">${dateJ(x.j)} · ${esc(x.canal)}</div><div class="o">${esc(x.objet)}</div>${x.note ? `<div>${esc(x.note)}</div>` : ''}</div>`).join('')}</div>`;
+}
+const md = t => esc(t).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+function pProc() {
+  const R = DATA.REGLES[st.secteur];
+  $('#pan').innerHTML = `<div class="carte proc"><h3>Vos marges de négociation</h3><ul>${R.marges.map(t => `<li>${md(t)}</li>`).join('')}</ul></div>
+  <div class="carte proc"><h3>Les règles que vous ne franchissez jamais</h3><ul>${R.regles.map(t => `<li>${md(t)}</li>`).join('')}</ul></div>`;
+}
+const planTexte = s => (s.plan || []).filter(l => l.montant).map(l => l.montant + ' € le ' + l.date + ' (' + l.moyen.toLowerCase() + ')').join(' ; ') || '—';
+
+// ---------------- Appel et accord
+function pCR(c) {
+  if (c.evalue && !st.identite) return ecranIdentite(c);
+  const vide = { identite: false, cause: '', faits: '', emotion: '', du: '', solution: '', qui: '', plan: [{}, {}, {}], recap: false, consequences: false, aides: false, conteste: false, montantConteste: '', objet: '', corps: '', signature: '', autoeval: {}, fige: false };
+  const s = st.saisies[cle(c)] || vide;
+  const dis = s.fige ? 'disabled' : '';
+  const plan = (s.plan || vide.plan).concat([{}, {}, {}]).slice(0, 3);
+  $('#pan').innerHTML = (c.evalue ? `<div class="carte bandeval"><b>Cas évalué</b> — ${esc(st.identite.prenom + ' ' + st.identite.nom)} · un seul essai · copier-coller désactivé</div>` : '') + `
+    <div class="carte"><h3>L'appel</h3>
+    <div class="grille2"><div><label class="l">Date</label><input type="text" value="${dateJ(0)}" disabled></div><div><label class="l">Type d'appel</label><input type="text" value="${c.sens === 'AS' ? 'Appel sortant' : 'Appel entrant'}" disabled></div></div>
+    <div class="coche"><input type="checkbox" id="f-id" ${s.identite ? 'checked' : ''} ${dis}><label for="f-id">J'ai vérifié que je parlais au titulaire du contrat avant d'évoquer la dette</label></div>
+    <label class="l">Cause de l'impayé</label><select id="f-cause" ${dis}><option value="">— Choisir —</option>${DATA.CAUSES.map(x => `<option ${s.cause === x ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select>
+    <label class="l">La situation du client <small>— ce qu'il vous a expliqué : faits, revenus, dates, contraintes</small></label><textarea id="f-faits" rows="4" ${dis}>${esc(s.faits)}</textarea>
+    <label class="l">État d'esprit perçu</label><div class="choix">${EMOTIONS.map(x => `<label><input type="radio" name="emo" value="${x}" ${s.emotion === x ? 'checked' : ''} ${dis}>${x}</label>`).join('')}</div>
+    </div>
+    <div class="carte"><h3>L'accord</h3>
+    <div class="grille2">
+      <div><label class="l">Somme due au jour de l'appel (€)</label><input type="text" id="f-du" value="${esc(s.du)}" placeholder="Ex. : 223,00" ${dis}></div>
+      <div><label class="l">Qui décide ?</label><select id="f-qui" ${dis}><option value="">— Choisir —</option>${DATA.QUI.map(x => `<option ${s.qui === x ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></div>
+    </div>
+    <label class="l">Solution retenue</label><select id="f-sol" ${dis}><option value="">— Choisir —</option>${DATA.SOLUTIONS[st.secteur].map(x => `<option ${s.solution === x ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select>
+    <label class="l">Engagement du client <small>— montant, date, moyen de paiement (versement d'attente compris)</small></label>
+    <table class="plan"><tr><th>Montant (€)</th><th>Date</th><th>Moyen de paiement</th></tr>${plan.map((l, i) => `<tr><td><input type="text" id="p-m${i}" value="${esc(l.montant || '')}" ${dis}></td><td><input type="text" id="p-d${i}" value="${esc(l.date || '')}" placeholder="${i === 0 ? 'Ex. : aujourd\'hui' : ''}" ${dis}></td><td><select id="p-y${i}" ${dis}><option value="">—</option>${DATA.MOYENS.map(x => `<option ${l.moyen === x ? 'selected' : ''}>${esc(x)}</option>`).join('')}</select></td></tr>`).join('')}</table>
+    <div class="coche"><input type="checkbox" id="f-conteste" ${s.conteste ? 'checked' : ''} ${dis}><label for="f-conteste">Une partie de la somme est contestée : je l'ai enregistrée en réclamation. Montant contesté :</label><input type="text" id="f-mconteste" value="${esc(s.montantConteste)}" style="width:110px" ${dis}></div>
+    <div class="coche"><input type="checkbox" id="f-recap" ${s.recap ? 'checked' : ''} ${dis}><label for="f-recap">J'ai récapitulé l'accord avec le client et il l'a validé</label></div>
+    <div class="coche"><input type="checkbox" id="f-cons" ${s.consequences ? 'checked' : ''} ${dis}><label for="f-cons">J'ai expliqué les conséquences d'un impayé (fichage, suspension, réduction…) — sans m'en servir comme menace</label></div>
+    <div class="coche"><input type="checkbox" id="f-aides" ${s.aides ? 'checked' : ''} ${dis}><label for="f-aides">J'ai informé le client des aides possibles (surendettement, chèque énergie, FSL, Point conseil budget, CCAS…)</label></div>
+    </div>
+    <div class="carte"><h3>E-mail de confirmation</h3>
+    <div class="grille2"><div><label class="l">Destinataire</label><input type="text" value="${esc(c.email)}" disabled></div><div><label class="l">Objet</label><input type="text" id="f-objet" value="${esc(s.objet)}" placeholder="Ex. : Dossier ${esc(c.ref)} — confirmation de notre accord" ${dis}></div></div>
+    <label class="l">Texte</label><textarea id="f-corps" rows="11" placeholder="${c.civ === 'M.' ? 'Monsieur,' : 'Madame,'}" ${dis}>${esc(s.corps)}</textarea>
+    <label class="l">Signature <small>— prénom, nom, fonction</small></label><input type="text" id="f-sign" value="${esc(s.signature)}" placeholder="Prénom Nom, conseiller recouvrement" ${dis}>
+    </div>${c.evalue ? carteAutoeval(s, dis) : ''}<div class="carte">${boutons(s, c.evalue)}</div>${s.fige ? (c.evalue ? noteEval(c, s) : rendu(controle(c, s), c.attendu)) : ''}`;
+  if (!s.fige) $('#b-save').onclick = () => {
+    const v = id => ($('#' + id) ? $('#' + id).value.trim() : '');
+    const emo = document.querySelector('input[name=emo]:checked');
+    const r = { identite: $('#f-id').checked, cause: v('f-cause'), faits: v('f-faits'), emotion: emo ? emo.value : '', du: v('f-du'), solution: v('f-sol'), qui: v('f-qui'),
+      plan: [0, 1, 2].map(i => ({ montant: v('p-m' + i), date: v('p-d' + i), moyen: v('p-y' + i) })), conteste: $('#f-conteste').checked, montantConteste: v('f-mconteste'),
+      recap: $('#f-recap').checked, consequences: $('#f-cons').checked, aides: $('#f-aides').checked, objet: v('f-objet'), corps: v('f-corps'), signature: v('f-sign'), fige: true };
+    if (c.evalue) { r.autoeval = {}; document.querySelectorAll('.ae-ligne').forEach((l, i) => { const x = l.querySelector('input:checked'); if (x) r.autoeval[i] = +x.value; }); r.stagiaire = st.identite; }
+    const m = [];
+    if (!r.cause) m.push("la cause de l'impayé"); if (!r.faits) m.push('la situation du client'); if (euro(r.du) === null) m.push('la somme due');
+    if (!r.solution) m.push('la solution'); if (!r.qui) m.push('qui décide');
+    const lignes = r.plan.filter(l => l.montant || l.date || l.moyen);
+    if (!lignes.length) m.push("l'engagement du client (au moins une ligne)"); else if (lignes.some(l => !l.montant || !l.date || !l.moyen)) m.push("chaque ligne d'engagement : montant, date et moyen");
+    if (!r.objet || !r.corps) m.push("l'e-mail (objet et texte)"); if (!r.signature) m.push('la signature');
+    if (c.evalue && Object.keys(r.autoeval).length < DATA.AUTOEVAL.length) m.push("l'auto-évaluation");
+    if (m.length) { $('#err').textContent = 'À compléter : ' + m.join(', ') + '.'; return; }
+    if (c.evalue && !confirm('Cas évalué : un seul essai. Une fois remis, votre accord ne pourra plus être modifié. Confirmer ?')) return;
+    st.saisies[cle(c)] = r; sauver(); liste(); vue();
+  };
+  else {
+    if ($('#b-reset')) $('#b-reset').onclick = () => { if (confirm('Effacer cette saisie et recommencer le cas ?')) { delete st.saisies[cle(c)]; sauver(); liste(); vue(); } };
+    $('#b-bilan').onclick = () => bilan(c, s);
+  }
+}
+function boutons(s, ev) {
+  return `<div class="actions">${s.fige ? `<button class="btn" disabled>${ev ? 'Cas évalué remis' : 'Accord enregistré'}</button><button class="btn sec" id="b-bilan">Télécharger le bilan</button>${ev ? '' : '<button class="btn sec" id="b-reset">Recommencer le cas</button>'}` : `<button class="btn" id="b-save">${ev ? 'Remettre le cas évalué' : "Enregistrer l'accord"}</button><span class="err" id="err"></span>`}</div>`;
+}
+
+// ---------------- Points de contrôle
+const trouve = (mots, t) => mots.some(m => t.includes(norm(m)));
+function controle(c, s) {
+  const A = c.attendu, L = [], v = (ok, txt, mi) => L.push({ ok, txt, mi });
+  const tf = norm(s.faits), tm = norm(s.objet + ' ' + s.corps);
+  v(s.identite, c.id === 'B4' ? 'Identité du titulaire vérifiée — rien n\'est dit à un tiers' : 'Identité du titulaire vérifiée avant d\'évoquer la dette');
+  v(s.cause === A.cause, s.cause === A.cause ? 'Cause : <b>' + esc(s.cause) + '</b>' : 'Cause retenue : ' + esc(s.cause) + ' — cause attendue : <b>' + esc(A.cause) + '</b>');
+  A.faits.forEach(f => v(trouve(f[1], tf), 'Situation recueillie : ' + esc(f[0])));
+  const du = euro(s.du);
+  v(du !== null && Math.abs(du - A.du) < 0.05, du !== null && Math.abs(du - A.du) < 0.05 ? 'Somme due exacte : <b>' + fmt(A.du) + '</b>' : 'Somme due saisie : ' + esc(s.du || '—') + ' — somme attendue : <b>' + fmt(A.du) + '</b>');
+  v(A.solutions.includes(s.solution), A.solutions.includes(s.solution) ? 'Solution : <b>' + esc(s.solution) + '</b>' : 'Solution retenue : ' + esc(s.solution) + ' — attendue : <b>' + esc(A.solutions.join(' ou ')) + '</b>');
+  v(s.qui === A.qui, s.qui === A.qui ? 'Qui décide : <b>' + esc(s.qui) + '</b>' : 'Qui décide : ' + esc(s.qui) + ' — attendu : <b>' + esc(A.qui) + '</b>');
+  const lignes = s.plan.filter(l => l.montant);
+  v(lignes.length && lignes.every(l => l.date && l.moyen), 'Engagement précis : montant, date et moyen de paiement');
+  if (A.plan) { const tot = lignes.reduce((a, l) => a + (euro(l.montant) || 0), 0); v(Math.abs(tot - A.plan) < 0.1, Math.abs(tot - A.plan) < 0.1 ? "Total de l'engagement : <b>" + fmt(A.plan) + '</b>' : "Total de l'engagement : " + fmt(tot) + ' — attendu : <b>' + fmt(A.plan) + '</b>'); }
+  if (A.conteste) v(s.conteste && Math.abs((euro(s.montantConteste) || 0) - A.conteste) < 0.05, 'Partie contestée (' + fmt(A.conteste) + ') enregistrée en réclamation, relance suspendue sur cette part');
+  v(s.recap, 'Accord récapitulé et validé par le client');
+  if (A.ficp) v(s.consequences, 'Conséquences expliquées sans menace (FICP : l\'accord suspend la déclaration)');
+  if (A.aides) v(s.aides, 'Client informé des aides possibles');
+  v(s.objet.length >= 15, 'E-mail : objet précis');
+  A.mail.forEach(f => v(trouve(f[1], tm), 'E-mail : ' + esc(f[0])));
+  v(s.signature.length >= 5 && !/^le service/i.test(s.signature), 'E-mail : signé par le conseiller');
+  const interdit = ['huissier', 'commissaire de justice', 'saisie', 'poursuite', 'tribunal', 'contentieux'].filter(m => tm.includes(norm(m)));
+  if (tm.includes('frais de recouvrement') && !/aucun frais de recouvrement|pas de frais de recouvrement|sans frais de recouvrement/.test(tm)) interdit.push('frais de recouvrement');
+  v(interdit.length === 0, interdit.length ? 'E-mail : vocabulaire de menace à éviter (« ' + interdit.join(' », « ') + ' »)' : 'E-mail : aucun vocabulaire de menace', interdit.length > 0);
+  return L;
+}
+function rendu(L, A) {
+  const pts = L.filter(l => l.ok).length;
+  return `<div class="carte"><h3>Points de contrôle</h3><div class="score">${pts} / ${L.length} points repérés</div><ul class="ctrl">${L.map(l => `<li><span class="i ${l.ok ? 'ok' : (l.mi ? 'mi' : 'ko')}">${l.ok ? '✓' : (l.mi ? '!' : '✗')}</span><span>${l.txt}</span></li>`).join('')}</ul>
+    <p class="note" style="margin-top:8px">Contrôle indicatif, fondé sur vos choix et sur les mots employés. C'est le formateur qui évalue l'appel.</p>
+    <div class="piste"><b>Piste pour ce dossier</b><br>${esc(A.suite)}</div></div>`;
+}
+
+// ---------------- Cas évalué
+function ecranIdentite(c) {
+  $('#pan').innerHTML = `<div class="carte bandeval"><h3>Cas évalué</h3><p>Ce cas est évalué : <b>un seul essai</b>, et le copier-coller est désactivé. Saisissez votre nom et votre prénom avant de commencer.</p>
+    <div class="grille2"><div><label class="l">Nom</label><input type="text" id="id-nom"></div><div><label class="l">Prénom</label><input type="text" id="id-prenom"></div></div>
+    <div class="actions"><button class="btn" id="id-ok">Commencer</button><span class="err" id="id-err"></span></div></div>`;
+  $('#id-ok').onclick = () => { const n = $('#id-nom').value.trim(), p = $('#id-prenom').value.trim(); if (!n || !p) { $('#id-err').textContent = 'Nom et prénom obligatoires.'; return; } st.identite = { nom: n.toUpperCase(), prenom: p }; sauver(); vue(); };
+}
+function carteAutoeval(s, dis) {
+  const ae = s.autoeval || {};
+  return `<div class="carte"><h3>Mon auto-évaluation <small class="note">— transmise au formateur avec le bilan</small></h3>
+    <table class="ae"><tr><th>Critère</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>${DATA.AUTOEVAL.map((t, i) => `<tr class="ae-ligne"><td>${esc(t)}</td>${[1, 2, 3, 4].map(v => `<td><input type="radio" name="ae${i}" value="${v}" ${ae[i] === v ? 'checked' : ''} ${dis} aria-label="${v}"></td>`).join('')}</tr>`).join('')}</table>
+    <p class="note" style="margin-top:6px">1 = pas du tout · 2 = un peu · 3 = plutôt bien · 4 = tout à fait</p></div>`;
+}
+function noteSur12(c, s) { const L = controle(c, s); const pts = L.filter(l => l.ok).length; return { note: Math.round(pts / L.length * 24) / 2, pts, tot: L.length, L }; }
+function noteEval(c, s) {
+  const n = noteSur12(c, s);
+  return `<div class="carte"><h3>Cas remis</h3><div class="score">Note algorithmique indicative : ${String(n.note).replace('.', ',')} / 12</div>
+    <p>Votre accord est enregistré. <b>Téléchargez votre bilan</b> et enregistrez-le à l'endroit indiqué par le formateur. La note finale est attribuée par le formateur, à partir de son observation de l'appel et de votre bilan.</p></div>`;
+}
+function verrouiller() {
+  document.querySelectorAll('#pan textarea, #pan input').forEach(el => ['paste', 'copy', 'cut', 'drop', 'contextmenu'].forEach(ev => el.addEventListener(ev, e => e.preventDefault())));
+}
+
+// ---------------- Bilan HTML
+function bilan(c, s) {
+  const E = DATA.ENTREPRISES[st.secteur], L = controle(c, s), pts = L.filter(l => l.ok).length;
+  const ligne = (k, v) => `<tr><th>${k}</th><td>${esc(v || '—').replace(/\n/g, '<br>')}</td></tr>`;
+  const html = `<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><title>Bilan — ${esc(c.ref)} — ${esc(s.signature)}</title><style>${DATA.CSS_BILAN}</style></head><body><div class="fictif">Document fictif à usage pédagogique</div>
+<h1>Bilan d'appel de recouvrement — ${esc(c.civ + ' ' + c.prenom + ' ' + c.nom)}</h1>
+<p>${esc(E.nom)} · ${esc(JOURS[st.jour])} · cas ${esc(c.id)}${c.evalue ? ' (cas évalué)' : ''} · dossier ${esc(c.ref)} · ${c.sens === 'AS' ? 'appel sortant' : 'appel entrant'} · ${dateJ(0)}<br>${s.stagiaire ? 'Stagiaire : <b>' + esc(s.stagiaire.prenom + ' ' + s.stagiaire.nom) + '</b> · ' : ''}Signature : <b>${esc(s.signature)}</b></p>${c.evalue ? '<p class="note12">Note algorithmique indicative : <b>' + String(noteSur12(c, s).note).replace('.', ',') + ' / 12</b> — note finale attribuée par le formateur.</p>' : ''}
+<h2>L'appel</h2><table>${ligne('Identité du titulaire vérifiée', s.identite ? 'Oui' : 'Non')}${ligne("Cause de l'impayé", s.cause)}${ligne('Situation du client', s.faits)}${ligne("État d'esprit perçu", s.emotion)}</table>
+<h2>L'accord</h2><table>${ligne('Somme due saisie', s.du ? s.du + ' €' : '')}${ligne('Solution', s.solution)}${ligne('Qui décide', s.qui)}${ligne('Engagement du client', planTexte(s))}${s.conteste ? ligne('Partie contestée (réclamation)', s.montantConteste + ' €') : ''}${ligne('Accord récapitulé et validé', s.recap ? 'Oui' : 'Non')}${ligne('Conséquences expliquées', s.consequences ? 'Oui' : 'Non')}${ligne('Aides présentées', s.aides ? 'Oui' : 'Non')}</table>
+<h2>E-mail de confirmation</h2><p><b>À :</b> ${esc(c.email)}<br><b>Objet :</b> ${esc(s.objet)}</p><div class="rep">${esc(s.corps)}\n\n${esc(s.signature)}</div>
+${s.autoeval && Object.keys(s.autoeval).length ? '<h2>Auto-évaluation du stagiaire (1 à 4)</h2><table>' + DATA.AUTOEVAL.map((t, i) => ligne(t, String(s.autoeval[i] || '—'))).join('') + '</table>' : ''}<h2>Points de contrôle (indicatifs) — ${pts} / ${L.length}</h2><ul>${L.map(l => `<li class="${l.ok ? 'ok' : (l.mi ? 'mi' : 'ko')}">${l.ok ? '✓' : (l.mi ? '!' : '✗')} ${l.txt}</li>`).join('')}</ul>
+<p><i>Contrôle indicatif : c'est le formateur qui évalue.</i></p>
+<div class="pied">TMK Performances - N° Siret : 49841924100027 - Code NAF : 8559A</div></body></html>`;
+  const nom = ('bilan_' + c.ref + '_' + (s.stagiaire ? s.stagiaire.nom + '_' + s.stagiaire.prenom : s.signature)).normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^A-Za-z0-9_-]+/g, '_').slice(0, 80) + '.html';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' })); a.download = nom;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+}
+init();
+
+</script>
+</body>
+</html>
